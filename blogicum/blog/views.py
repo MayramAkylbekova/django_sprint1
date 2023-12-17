@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404
 # Create your views here.
-posts = [
+posts: list = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -43,12 +43,12 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     }
 ]
-post_data = list(reversed(posts))
+post_data: list = list(reversed(posts))
 
 
 def index(request):
     template_name = 'blog/index.html'
-    context = {'posts': post_data}
+    context: dict = {'posts': post_data}
     return render(request, template_name, context)
 
 
@@ -56,12 +56,12 @@ def post_detail(request, post_id):
     template_name = 'blog/detail.html'
     for post in posts:
         if post['id'] == post_id:
-            context = {'post': posts[post_id]}
+            context: dict = {'post': posts[post_id]}
             return render(request, template_name, context)
     raise Http404(f'Страницы с таким номером поста {post_id} не существует')
 
 
 def category_posts(request, category_slug):
     template_name = 'blog/category.html'
-    context = {'category_slug': category_slug}
+    context: dict = {'category_slug': category_slug}
     return render(request, template_name, context)

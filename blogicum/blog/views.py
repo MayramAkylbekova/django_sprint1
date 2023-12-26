@@ -44,12 +44,14 @@ posts: list = [
     }
 ]
 post_dict: dict = {}
-for i in range(3):
-    post_dict[i] = posts[i]
+for i in range(len(posts)):
+    post_dict = {post.get('id'): post for post in posts}
 
 
 def index(request):
-    return render(request, 'blog/index.html', {'posts': list(reversed(posts))})
+    return render(request, 'blog/index.html', {
+        'posts': list(reversed(posts))
+    })
 
 
 def post_detail(request, post_id):
@@ -60,5 +62,6 @@ def post_detail(request, post_id):
 
 
 def category_posts(request, category_slug):
-    return render(request, 'blog/category.html',
-                  {'category_slug': category_slug})
+    return render(request, 'blog/category.html', {
+        'category_slug': category_slug
+    })

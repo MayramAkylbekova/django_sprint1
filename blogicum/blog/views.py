@@ -43,9 +43,7 @@ posts: list = [
                 укутывал их, чтобы не испортились от дождя.''',
     }
 ]
-post_dict: dict = {}
-for i in range(len(posts)):
-    post_dict = {post.get('id'): post for post in posts}
+post_dict = {post.get('id'): post for post in posts}
 
 
 def index(request):
@@ -58,7 +56,9 @@ def post_detail(request, post_id):
     if post_id not in post_dict:
         raise Http404(f'Страницы с таким номером поста {post_id}'
                       'не существует')
-    return render(request, 'blog/detail.html', {'post': posts[post_id]})
+    return render(request, 'blog/detail.html', {
+        'post': post_dict.get(post_id)
+    })
 
 
 def category_posts(request, category_slug):
